@@ -375,7 +375,7 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         }
       }
 
-      _touchLinePaint.color = indicatorData.indicatorBelowLine.color;
+      _touchLinePaint.color = const Color(0xFFDFFF86);
       _touchLinePaint.strokeWidth =
           indicatorData.indicatorBelowLine.strokeWidth;
       _touchLinePaint.transparentIfWidthIsZero();
