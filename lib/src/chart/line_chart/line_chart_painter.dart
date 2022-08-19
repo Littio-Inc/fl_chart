@@ -351,7 +351,7 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         final xPercentInLine = (touchedSpot.dx / barXDelta) * 100;
         dotPainter = indicatorData.touchedSpotDotData
             .getDotPainter(spot, xPercentInLine, barData, index);
-        dotHeight = dotPainter.getSize(spot).height;
+        dotHeight = 8;
       }
 
       /// For drawing the indicator line
@@ -375,12 +375,22 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         }
       }
 
-      _touchLinePaint.color = const Color(0xFFEA362C);
+      _touchLinePaint.color = indicatorData.indicatorBelowLine.color;
       _touchLinePaint.strokeWidth = 1;
       _touchLinePaint.transparentIfWidthIsZero();
 
-      canvasWrapper.drawDashedLine(lineStart, lineEnd, _touchLinePaint,
-          indicatorData.indicatorBelowLine.dashArray);
+      double startY = lineStart.dy;
+      var dashWidth = 5;
+      var dashSpace = 5;
+      final space = (dashSpace + dashWidth);
+      while (startY > 0) {
+        canvasWrapper.drawDashedLine(
+            Offset(lineStart.dx, startY),
+            Offset(lineEnd.dx, startY - dashWidth),
+            _touchLinePaint,
+            indicatorData.indicatorBelowLine.dashArray);
+        startY -= space;
+      }
 
       /// Draw the indicator dot
       if (showingDots) {

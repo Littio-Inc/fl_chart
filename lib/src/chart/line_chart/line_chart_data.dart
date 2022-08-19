@@ -774,7 +774,7 @@ typedef GetDotPainterCallback = FlDotPainter Function(
 
 FlDotPainter _defaultGetDotPainter(
     FlSpot spot, double xPercentage, LineChartBarData bar, int index,
-    {double? size}) {
+    {double? size = 4}) {
   return FlDotCirclePainter(
     radius: size,
     color: _defaultGetDotColor(spot, xPercentage, bar),
