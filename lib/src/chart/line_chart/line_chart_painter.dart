@@ -375,9 +375,8 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         }
       }
 
-      _touchLinePaint.color = const Color(0xFFDFFF86);
-      _touchLinePaint.strokeWidth =
-          indicatorData.indicatorBelowLine.strokeWidth;
+      _touchLinePaint.color = const Color(0xFFEA362C);
+      _touchLinePaint.strokeWidth = 1;
       _touchLinePaint.transparentIfWidthIsZero();
 
       canvasWrapper.drawDashedLine(lineStart, lineEnd, _touchLinePaint,
