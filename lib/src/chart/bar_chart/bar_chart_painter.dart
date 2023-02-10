@@ -290,12 +290,26 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
     final viewSize = canvasWrapper.size;
 
     const textsBelowMargin = 4;
-
+    final tooltipBgColor = tooltipData.getTooltipBgColor(
+      showOnBarGroup,
+      barGroupIndex,
+      showOnRodData,
+      barRodIndex,
+      tooltipData.tooltipBgColor,
+    );
     final tooltipItem = tooltipData.getTooltipItem(
       showOnBarGroup,
       barGroupIndex,
       showOnRodData,
       barRodIndex,
+    );
+
+    final tooltipBorder = tooltipData.getTooltipBorder(
+      showOnBarGroup,
+      barGroupIndex,
+      showOnRodData,
+      barRodIndex,
+      tooltipData.tooltipBorder,
     );
 
     if (tooltipItem == null) {
@@ -404,7 +418,7 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
         topRight: radius,
         bottomLeft: radius,
         bottomRight: radius);
-    _bgTouchTooltipPaint.color = tooltipData.tooltipBgColor;
+    _bgTouchTooltipPaint.color = tooltipBgColor;
 
     final rotateAngle = tooltipData.rotateAngle;
     final rectRotationOffset =
@@ -421,9 +435,9 @@ class BarChartPainter extends AxisChartPainter<BarChartData> {
       rect.topCenter.dy + top - textRotationOffset.dy + rectRotationOffset.dy,
     );
 
-    if (tooltipData.tooltipBorder != BorderSide.none) {
-      _borderTouchTooltipPaint.color = tooltipData.tooltipBorder.color;
-      _borderTouchTooltipPaint.strokeWidth = tooltipData.tooltipBorder.width;
+    if (tooltipBorder != BorderSide.none) {
+      _borderTouchTooltipPaint.color = tooltipBorder.color;
+      _borderTouchTooltipPaint.strokeWidth = tooltipBorder.width;
     }
 
     canvasWrapper.drawRotated(

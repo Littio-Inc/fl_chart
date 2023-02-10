@@ -686,6 +686,12 @@ class BarTouchTooltipData with EquatableMixin {
   /// The tooltip border color.
   final BorderSide tooltipBorder;
 
+  /// Tooltipb Bg color with a fuction.
+  final GetTooltipBgColor getTooltipBgColor;
+
+  /// Tooltip border with a fuction.
+  final GetTooltipBorder getTooltipBorder;
+
   /// if [BarTouchData.handleBuiltInTouches] is true,
   /// [BarChart] shows a tooltip popup on top of rods automatically when touch happens,
   /// otherwise you can show it manually using [BarChartGroupData.showingTooltipIndicators].
@@ -711,6 +717,8 @@ class BarTouchTooltipData with EquatableMixin {
     TooltipDirection? direction,
     double? rotateAngle,
     BorderSide? tooltipBorder,
+    GetTooltipBgColor? getTooltipBgColor,
+    GetTooltipBorder? getTooltipBorder,
   })  : tooltipBgColor = tooltipBgColor ?? Colors.blueGrey.darken(15),
         tooltipRoundedRadius = tooltipRoundedRadius ?? 4,
         tooltipPadding = tooltipPadding ??
@@ -723,6 +731,8 @@ class BarTouchTooltipData with EquatableMixin {
         direction = direction ?? TooltipDirection.auto,
         rotateAngle = rotateAngle ?? 0.0,
         tooltipBorder = tooltipBorder ?? BorderSide.none,
+        getTooltipBgColor = getTooltipBgColor ?? defaultBarTooltipBgColor,
+        getTooltipBorder = getTooltipBorder ?? defaultTooltipBorder,
         super();
 
   /// Used for equality check, see [EquatableMixin].
@@ -767,6 +777,47 @@ BarTooltipItem? defaultBarTooltipItem(
     fontSize: 14,
   );
   return BarTooltipItem(rod.toY.toString(), textStyle);
+}
+
+/// Type function to get tooltip background color
+typedef GetTooltipBgColor = Color Function(
+  BarChartGroupData group,
+  int groupIndex,
+  BarChartRodData rod,
+  int rodIndex,
+  Color defaultColor,
+);
+
+/// Default implementation for [BarTouchTooltipData.getTooltipBgColor].
+Color defaultBarTooltipBgColor(
+  BarChartGroupData group,
+  int groupIndex,
+  BarChartRodData rod,
+  int rodIndex,
+  Color defaultColor,
+) {
+  return defaultColor;
+}
+
+/// Type function to get tooltip border
+typedef GetTooltipBorder = BorderSide Function(
+  BarChartGroupData group,
+  int groupIndex,
+  BarChartRodData rod,
+  int rodIndex,
+  BorderSide defaultBorder,
+);
+
+/// Default implementation for [BarTouchTooltipData.getTooltipBorder].
+
+BorderSide defaultTooltipBorder(
+  BarChartGroupData group,
+  int groupIndex,
+  BarChartRodData rod,
+  int rodIndex,
+  BorderSide defaultBorder,
+) {
+  return defaultBorder;
 }
 
 /// Holds data needed for showing custom tooltip content.
